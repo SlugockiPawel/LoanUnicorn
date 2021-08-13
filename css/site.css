@@ -3,6 +3,7 @@
   --secondary-color: #f098b6ff;
   --dark-color: #292929;
   --white-color: #e7e7e7;
+  --gray-color: #E0E0E0;
 }
 
 main > .container {
@@ -44,6 +45,10 @@ footer .social > a:hover {
   color: var(--secondary-color);
 }
 
+.form-bg {
+  background-color: var(--gray-color);
+}
+
 .btn-fill:hover{
   background-color: var(--secondary-color);
 }
@@ -53,6 +58,16 @@ footer .social > a:hover {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+
+.button-variant {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.table-header {
+  color: var(--white-color);
+  background-color: var(--primary-color);
 }
 
 .bsicon {
