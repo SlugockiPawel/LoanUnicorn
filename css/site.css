@@ -1,6 +1,6 @@
 :root {
-  --primary-color: #1d5888;
-  --secondary-color: #ff993b;
+  --primary-color: #7d669bff;
+  --secondary-color: #f098b6ff;
   --dark-color: #292929;
   --white-color: #e7e7e7;
 }
@@ -42,6 +42,10 @@ footer .social > a {
 footer .social > a:hover {
   opacity: 0.9;
   color: var(--secondary-color);
+}
+
+.btn-fill:hover{
+  background-color: var(--secondary-color);
 }
 
 .sticky-nav {
