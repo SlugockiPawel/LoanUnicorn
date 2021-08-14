@@ -3,6 +3,7 @@
   --secondary-color: #f098b6ff;
   --dark-color: #292929;
   --white-color: #e7e7e7;
+  --gray-color: #e0e0e0;
 }
 
 main > .container {
@@ -44,7 +45,11 @@ footer .social > a:hover {
   color: var(--secondary-color);
 }
 
-.btn-fill:hover{
+.form-bg {
+  background-color: var(--gray-color);
+}
+
+.btn-fill:hover {
   background-color: var(--secondary-color);
 }
 
@@ -53,6 +58,16 @@ footer .social > a:hover {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+
+.button-variant {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.table-header {
+  color: var(--white-color);
+  background-color: var(--primary-color);
 }
 
 .bsicon {
@@ -74,11 +89,15 @@ footer .social > a:hover {
 .checklist > li em {
   color: var(--secondary-color);
 }
+.text-big {
+  font-size: 5em;
+  font-weight: bolder;
+}
 
 code[class*="language-"],
 pre[class*="language-"] {
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }

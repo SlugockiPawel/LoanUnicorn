@@ -74,7 +74,113 @@
     </nav>
     <!-- main section -->
     <main class="flex-shrink-0">
-      <div class="container"></div>
+      <div class="container">
+        <h2 class="fw-bold mt-2">Loan Calculator</h2>
+        <div class="row row-cols-1 row-cols-lg-2">
+          <div class="col">
+            <form action="submit" id="form" class="form-control form-bg mb-3">
+              <div class="col-12">
+                <label class="mt-2">Loan Amount:</label>
+                <input
+                  id="loanAmountInput"
+                  type="number"
+                  min="100"
+                  max="300000"
+                  value="15000"
+                  class="form-control"
+                  aria-label="Loan Amount"
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <label>Payments:</label>
+                <input
+                  id="paymentsInput"
+                  type="number"
+                  min="1"
+                  max="120"
+                  value="60"
+                  class="form-control"
+                  aria-label="Payments"
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <label>Rate:</label>
+                <input
+                  id="rateInput"
+                  type="number"
+                  min="1"
+                  value="3"
+                  max="15"
+                  class="form-control"
+                  aria-label="Rate"
+                  required
+                />
+              </div>
+              <div class="col-sm-12 d-flex justify-content-end">
+                <button
+                  id="calculateBtn"
+                  class="btn btn-outline-dark button-variant btn-fill mt-2 mb-2"
+                  type="button"
+                >
+                  Calculate
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col lh-1">
+            <h4 class="text-center border-bottom">Your Monthly Payment</h4>
+            <div id="monthlyPaymentContainer">
+              <!-- Monthly Payment here -->
+              <h2 class="text-center text-big mb-4">299</h2>
+            </div>
+            <div
+              class="d-flex justify-content-between col-5 border-bottom mb-1"
+            >
+              <p class="mb-1">Total Principal:</p>
+              <p id="totalPrincipalValue" class="mb-1">10110</p>
+            </div>
+            <div
+              class="d-flex justify-content-between col-5 border-bottom mb-1"
+            >
+              <p class="mb-1">Total Interest:</p>
+              <p id="totalInterestValue" class="mb-1">200</p>
+            </div>
+            <div
+              class="d-flex justify-content-between col-5 border-bottom mb-1"
+            >
+              <p class="mb-1">Total Cost:</p>
+              <p id="totalCostValue" class="mb-1">300</p>
+            </div>
+          </div>
+          <div class="col-12 table-responsive">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr class="table-header">
+                  <th scope="col">Month</th>
+                  <th scope="col">Payment</th>
+                  <th scope="col">Principal</th>
+                  <th scope="col">Interest</th>
+                  <th scope="col">Total Interest</th>
+                  <th scope="col">Balance</th>
+                </tr>
+              </thead>
+              <tbody id="results">
+                <!-- Results here -->
+                <tr>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </main>
     <!-- footer section -->
     <footer class="footer mt-auto py-3 sticky-footer gy-2">
@@ -139,6 +245,24 @@
       </div>
     </footer>
     <!-- Bootstrap JS -->
+
+    <!-- templates -->
+    <template id="rowTemplate">
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </template>
+
+    <template id="monthlyPaymentTemplate">
+      <h2 class="text-center text-big mb-4"></h2>
+    </template>
+
+    <!-- templates end -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
       integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
