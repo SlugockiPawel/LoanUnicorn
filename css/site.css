@@ -3,7 +3,11 @@
   --secondary-color: #f098b6ff;
   --dark-color: #292929;
   --white-color: #e7e7e7;
+<<<<<<< HEAD
   --gray-color: #E0E0E0;
+=======
+  --gray-color: #e0e0e0;
+>>>>>>> Feature/appView
 }
 
 main > .container {
@@ -49,7 +53,11 @@ footer .social > a:hover {
   background-color: var(--gray-color);
 }
 
+<<<<<<< HEAD
 .btn-fill:hover{
+=======
+.btn-fill:hover {
+>>>>>>> Feature/appView
   background-color: var(--secondary-color);
 }
 
@@ -89,11 +97,15 @@ footer .social > a:hover {
 .checklist > li em {
   color: var(--secondary-color);
 }
+.text-big {
+  font-size: 5em;
+  font-weight: bolder;
+}
 
 code[class*="language-"],
 pre[class*="language-"] {
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
