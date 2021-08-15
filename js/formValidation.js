@@ -1,14 +1,16 @@
 function handleFormInputChange() {
   const alertContainer = document.getElementById("alertContainer");
   const button = document.getElementById("calculateBtn");
-  const tableBody = document.getElementById("results");
   const loanAmount = Number(document.getElementById("loanAmountInput").value);
+  const tableBody = document.getElementById("results");
   const payments = Number(document.getElementById("paymentsInput").value);
   const rate = Number(document.getElementById("rateInput").value);
+  const totalMonthlyPayment = document.getElementById('monthlyPaymentContainer');
 
   button.classList.remove("disabled");
   alertContainer.innerHTML = "";
   tableBody.innerHTML = "";
+  totalMonthlyPayment.innerText = "";
 
   try {
     validateLoanAmount(loanAmount);
