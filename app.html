@@ -80,20 +80,21 @@
           <div class="col">
             <form action="submit" id="form" class="form-control form-bg mb-3">
               <div class="col-12">
-                <label class="mt-2">Loan Amount:</label>
+                <label class="mt-2">Loan Amount (USD):</label>
                 <input
                   id="loanAmountInput"
                   type="number"
                   min="100"
                   max="300000"
                   value="15000"
+                  step="1"
                   class="form-control"
                   aria-label="Loan Amount"
                   required
                 />
               </div>
               <div class="col-12">
-                <label>Payments:</label>
+                <label>Payments (Months):</label>
                 <input
                   id="paymentsInput"
                   type="number"
@@ -106,17 +107,21 @@
                 />
               </div>
               <div class="col-12">
-                <label>Rate:</label>
+                <label>Rate (%):</label>
                 <input
                   id="rateInput"
                   type="number"
                   min="1"
                   value="3"
-                  max="15"
+                  max="9"
+                  step="0.01"
                   class="form-control"
                   aria-label="Rate"
                   required
                 />
+              </div>
+              <div id='alertContainer' class='col-12'>
+                <!-- alert template here -->
               </div>
               <div class="col-sm-12 d-flex justify-content-end">
                 <button
@@ -262,6 +267,27 @@
       <h2 class="text-center text-big mb-4"></h2>
     </template>
 
+    <template id="alertTemplate">
+      <div
+        class="
+          alert
+          d-flex
+          justify-content-center
+          pt-0
+          pb-0
+          mb-0
+          alert-danger
+          mt-2
+          fade
+          show
+        "
+        id="alert"
+        role="alert"
+      >
+      <p class="p-0 m-0"><!-- form validation error message here --></p>
+    </div>
+  </template>
+
     <!-- templates end -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -274,5 +300,9 @@
       crossorigin="anonymous"
     ></script>
     <script src="./js/site.js"></script>
+    <script src="./js/formValidation.js"></script>
+    <script>
+      document.getElementById('form').addEventListener('keyup', handleFormInputChange);
+    </script>
   </body>
 </html>
