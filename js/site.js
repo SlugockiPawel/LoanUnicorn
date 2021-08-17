@@ -10,10 +10,15 @@ function handleCalculateBtnClick() {
     rate,
     paymentPeriods
   );
-   
-  const tableRows = populateTableRows(loanAmount, paymentPeriods, totalMonthlyPayment, rate);
 
-  
+  const tableRows = populateTableRows(
+    loanAmount,
+    paymentPeriods,
+    totalMonthlyPayment,
+    rate
+  );
+
+  displayAmortizationTable(tableRows);
 
   displayTotalMonthlyPayment(totalMonthlyPayment);
 }
@@ -22,34 +27,44 @@ function handleCalculateBtnClick() {
 
 function calculateTotalMonthlyPayment(loanAmount, rate, paymentPeriods) {
   // total monthly payment = (amount loaned) * (rate / 1200) / (1 - (1 + rate / 1200)^(- Number of Months))
-  const result = (
-    (loanAmount * (rate / 1200)) / (1 - (1 + rate / 1200) ** (-paymentPeriods))
-  );
+  const result =
+    (loanAmount * (rate / 1200)) / (1 - (1 + rate / 1200) ** -paymentPeriods);
 
-  return result.toFixed(2);
+  return result;
 }
 
 function calculateRemainingBalance(
   previousRemainingBalance,
   principalPayments
 ) {
-  return (previousRemainingBalance - principalPayments).toFixed(2)
+  return previousRemainingBalance - principalPayments;
 }
 
 function calculateInterestPayment(previousRemainingBalance, rate) {
-  return ((previousRemainingBalance * rate) / 1200).toFixed(2);
+  return (previousRemainingBalance * rate) / 1200;
 }
 
 function calculatePrincipalPayment(totalMonthlyPayment, interestPayment) {
-  return (totalMonthlyPayment - interestPayment).toFixed(2);
+  return totalMonthlyPayment - interestPayment;
 }
 
-function populateTableRows(loanAmount, paymentPeriods, totalMonthlyPayment, rate) {
+function populateTableRows(
+  loanAmount,
+  paymentPeriods,
+  totalMonthlyPayment,
+  rate
+) {
   const tableRows = [];
 
   // populate table columns
   for (let i = 0; i < paymentPeriods; i++) {
-    const tableRow = calculateTableRow(i, tableRows[i - 1], loanAmount, rate, totalMonthlyPayment)
+    const tableRow = calculateTableRow(
+      i,
+      tableRows[i - 1],
+      loanAmount,
+      rate,
+      totalMonthlyPayment
+    );
 
     tableRows.push(tableRow);
   }
@@ -57,20 +72,24 @@ function populateTableRows(loanAmount, paymentPeriods, totalMonthlyPayment, rate
   return tableRows;
 }
 
-function calculateTableRow(index, previousRow, loanAmount, rate, totalMonthlyPayment) {
-  // first row previous remaining balance and previous interest values cannot be read from previous row object 
+function calculateTableRow(
+  index,
+  previousRow,
+  loanAmount,
+  rate,
+  totalMonthlyPayment
+) {
+  // first row previous remaining balance and previous interest values cannot be read from previous row object
   let previousRemainingBalance = 0;
-  let previousInterest = 0;
+  let previousTotalInterest = 0;
 
-  if(previousRow === undefined) {
+  if (previousRow === undefined) {
     previousRemainingBalance = loanAmount;
-    previousInterest = 0;
-  }else {
+    previousTotalInterest = 0;
+  } else {
     previousRemainingBalance = previousRow.remainingBalance;
-    previousInterest = previousRow.interest;
+    previousTotalInterest = previousRow.totalInterest;
   }
-
-  
 
   const tableRow = {
     month: index + 1,
@@ -79,20 +98,55 @@ function calculateTableRow(index, previousRow, loanAmount, rate, totalMonthlyPay
     principal: 0,
     totalInterest: 0,
     remainingBalance: 0,
-  }
+  };
 
-  tableRow.interest = Number(calculateInterestPayment(previousRemainingBalance, rate));
-  tableRow.principal = Number(calculatePrincipalPayment(totalMonthlyPayment, tableRow.interest));
-  tableRow.totalInterest = Number(previousInterest) + tableRow.interest;
-  tableRow.remainingBalance = Number(calculateRemainingBalance(previousRemainingBalance, tableRow.principal));
+  tableRow.interest = Number(
+    calculateInterestPayment(previousRemainingBalance, rate)
+  );
+  tableRow.principal = Number(
+    calculatePrincipalPayment(totalMonthlyPayment, tableRow.interest)
+  );
+  tableRow.totalInterest = Number(previousTotalInterest) + tableRow.interest;
+  tableRow.remainingBalance = Number(
+    calculateRemainingBalance(previousRemainingBalance, tableRow.principal)
+  );
 
   return tableRow;
 }
 
 // view functions
 
+function displayAmortizationTable(tableRows) {
+  // get the table body element from the page
+  const tableBody = document.getElementById("results");
+
+  // clear the table body before populating new data
+  tableBody.innerHTML = "";
+
+  tableRows.forEach((rowObj) => {
+    // create <tr> document placeholder for <td> data
+    const tr = document.createElement('tr');
+
+    // populate <td> data (basically single row ) 
+    const singleTableRow = `
+        <td>${rowObj.month}</td>
+        <td>${rowObj.payment.toFixed(2)}</td>
+        <td>${rowObj.principal.toFixed(2)}</td>
+        <td>${rowObj.interest.toFixed(2)}</td>
+        <td>${rowObj.totalInterest.toFixed(2)}</td>
+        <td>${rowObj.remainingBalance.toFixed(2)}</td>
+      `;
+
+    // complete single <tr> node
+    tr.innerHTML = singleTableRow;
+
+    // append single <tr> to the html table
+    tableBody.appendChild(tr);
+  });
+}
+
 function displayTotalMonthlyPayment(value) {
   var container = document.getElementById("monthlyPaymentContainer");
 
-  container.innerText = `$${value}`;
+  container.innerText = `$${value.toFixed(2)}`;
 }
