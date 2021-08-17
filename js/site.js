@@ -21,7 +21,10 @@ function handleCalculateBtnClick() {
   const totalInterest = tableRows[tableRows.length - 1].totalInterest;
 
   displayAmortizationTable(tableRows);
-  displayTotalElement(loanAmount, 'totalPrincipalValue');
+  displayTotalElement(loanAmount, 'totalPrincipalContainer');
+  displayTotalElement(totalMonthlyPayment, 'monthlyPaymentContainer');
+  
+  
 }
 
 // logic functions
