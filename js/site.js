@@ -18,9 +18,10 @@ function handleCalculateBtnClick() {
     rate
   );
 
-  displayAmortizationTable(tableRows);
+  const totalInterest = tableRows[tableRows.length - 1].totalInterest;
 
-  displayTotalMonthlyPayment(totalMonthlyPayment);
+  displayAmortizationTable(tableRows);
+  displayTotalElement(loanAmount, 'totalPrincipalValue');
 }
 
 // logic functions
@@ -145,8 +146,12 @@ function displayAmortizationTable(tableRows) {
   });
 }
 
-function displayTotalMonthlyPayment(value) {
-  var container = document.getElementById("monthlyPaymentContainer");
+function displayTotalElement(value, elementId) {
+  const container = document.getElementById(elementId);
+  const currency = value.toLocaleString('en', {style: 'currency',currency: 'USD', minimumFractionDigits: 2})
 
-  container.innerText = `$${value.toFixed(2)}`;
+  container.innerText = `${currency}`;
 }
+
+
+
