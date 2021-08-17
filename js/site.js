@@ -1,9 +1,9 @@
 // controller function
 
 function handleCalculateBtnClick() {
-  const loanAmount = Number(document.getElementById("loanAmountInput").value);
-  const paymentPeriods = Number(document.getElementById("paymentsInput").value);
-  const rate = Number(document.getElementById("rateInput").value);
+  const loanAmount = Number(document.getElementById('loanAmountInput').value);
+  const paymentPeriods = Number(document.getElementById('paymentsInput').value);
+  const rate = Number(document.getElementById('rateInput').value);
 
   const totalMonthlyPayment = calculateTotalMonthlyPayment(
     loanAmount,
@@ -24,6 +24,7 @@ function handleCalculateBtnClick() {
   displayTotalElement(loanAmount, 'totalPrincipalContainer');
   displayTotalElement(totalMonthlyPayment, 'monthlyPaymentContainer');
   displayTotalElement(totalInterest, 'totalInterestContainer');
+  displayTotalElement(loanAmount + totalInterest, 'totalCostContainer');
 }
 
 // logic functions
@@ -121,10 +122,10 @@ function calculateTableRow(
 
 function displayAmortizationTable(tableRows) {
   // get the table body element from the page
-  const tableBody = document.getElementById("results");
+  const tableBody = document.getElementById('results');
 
   // clear the table body before populating new data
-  tableBody.innerHTML = "";
+  tableBody.innerHTML = '';
 
   tableRows.forEach((rowObj) => {
     // create <tr> document placeholder for <td> data
@@ -150,10 +151,10 @@ function displayAmortizationTable(tableRows) {
 
 function displayTotalElement(value, elementId) {
   const container = document.getElementById(elementId);
+  container.classList.remove('invisible');
   const currency = value.toLocaleString('en', {style: 'currency',currency: 'USD', minimumFractionDigits: 2})
 
   container.innerText = `${currency}`;
 }
-
 
 
