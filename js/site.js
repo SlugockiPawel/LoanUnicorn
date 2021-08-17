@@ -23,8 +23,7 @@ function handleCalculateBtnClick() {
   displayAmortizationTable(tableRows);
   displayTotalElement(loanAmount, 'totalPrincipalContainer');
   displayTotalElement(totalMonthlyPayment, 'monthlyPaymentContainer');
-  
-  
+  displayTotalElement(totalInterest, 'totalInterestContainer');
 }
 
 // logic functions
