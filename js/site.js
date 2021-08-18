@@ -1,5 +1,4 @@
 // controller function
-
 function handleCalculateBtnClick() {
   const loanAmount = Number(document.getElementById('loanAmountInput').value);
   const paymentPeriods = Number(document.getElementById('paymentsInput').value);
@@ -28,9 +27,7 @@ function handleCalculateBtnClick() {
 }
 
 // logic functions
-
 function calculateTotalMonthlyPayment(loanAmount, rate, paymentPeriods) {
-  // total monthly payment = (amount loaned) * (rate / 1200) / (1 - (1 + rate / 1200)^(- Number of Months))
   const result =
     (loanAmount * (rate / 1200)) / (1 - (1 + rate / 1200) ** -paymentPeriods);
 
@@ -60,7 +57,6 @@ function populateTableRows(
 ) {
   const tableRows = [];
 
-  // populate table columns
   for (let i = 0; i < paymentPeriods; i++) {
     const tableRow = calculateTableRow(
       i,
@@ -119,7 +115,6 @@ function calculateTableRow(
 }
 
 // view functions
-
 function displayAmortizationTable(tableRows) {
   // get the table body element from the page
   const tableBody = document.getElementById('results');

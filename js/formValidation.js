@@ -9,8 +9,7 @@ function handleFormInputChange() {
   const totalPrincipal = document.getElementById('totalPrincipalContainer');
   const totalInterest = document.getElementById('totalInterestContainer');
   const totalCost = document.getElementById('totalCostContainer');
-
-
+  
   button.classList.remove('disabled');
   alertContainer.innerHTML = '';
   tableBody.innerHTML = '';

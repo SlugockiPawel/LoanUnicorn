@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <title>A LOAN UNICORN: A Coding Project By Pawel Slugocki</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/5db21ba9c6.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="./css/prism.css" rel="stylesheet" />
+    <link href="./css/site.css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="img/favicon_io/favicon-32x32.png" />
+  </head>
+  <body class="d-flex flex-column h-100">
+    <!-- nav section -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          ><img
+            src="img/mono-kmousetool.svg"
+            class="d-inline-block align-text-top"
+            alt="Logo"
+            width="30"
+            height="24"
+          />
+          A LOAN UNICORN</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app.html">The App</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="code.html"
+                >The Code</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" href="#">Git Repo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" href="#">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- main section -->
+    <main class="flex-shrink-0">
+      <div class="container py-5 px-5 mt-5">
+        <div>
+          <ul class="nav nav-pills mb-2">
+            <li class="nav-item">
+                <a href="./Code.html" class="btn btn-lg px-4 me-md-2 border" aria-current="page">A Loan Unicorn Code</a>
+            </li>
+            <li class="nav-item ms-sm-2">
+              <a href="./codeValidation.html" class="btn btn-lg
+              px-4
+              me-md-2
+              btn-active
+              button-variant
+              text-light">Form Validation Code</a>
+          </li>
+        </ul>
+        </div>
+        <h2 class="border-1 border-bottom border-dark">
+          The Code For A Loan Unicorn
+        </h2>
+        <div class="row row-cols-1 row-cols-md-2">
+          <div class="col-lg-8">
+            <pre class="line-numbers"><code class="language-javascript">
+              function handleFormInputChange() {
+                const alertContainer = document.getElementById('alertContainer');
+                const button = document.getElementById('calculateBtn');
+                const loanAmount = Number(document.getElementById('loanAmountInput').value);
+                const tableBody = document.getElementById('results');
+                const payments = Number(document.getElementById('paymentsInput').value);
+                const rate = Number(document.getElementById('rateInput').value);
+                const totalMonthlyPayment = document.getElementById('monthlyPaymentContainer');
+                const totalPrincipal = document.getElementById('totalPrincipalContainer');
+                const totalInterest = document.getElementById('totalInterestContainer');
+                const totalCost = document.getElementById('totalCostContainer');
+                
+                button.classList.remove('disabled');
+                alertContainer.innerHTML = '';
+                tableBody.innerHTML = '';
+                totalMonthlyPayment.innerText = '';
+                totalPrincipal.innerText = '';
+                totalInterest.innerText = '';
+                totalCost.innerText = '';
+              
+                try {
+                  validateLoanAmount(loanAmount);
+                  validatePayments(payments);
+                  validateRate(rate);
+                } catch (error) {
+                  button.classList.add('disabled');
+                  displayValidationAlert(error.message);
+                }
+              }
+              
+              // validating user input
+          
+              function isInt(input) {
+                const number = Number(input);
+              
+                return Number.isInteger(number);
+              }
+              
+              function isInRange(number, lowerValue, upperValue) {
+                return number >= lowerValue && number <= upperValue;
+              }
+              
+              function validateLoanAmount(loanAmount) {
+                if (isInRange(loanAmount, 100, 300000) === false) {
+                  throw new Error('Loan amount has to be in 100 - 300 000 range');
+                }
+              }
+              
+              function validatePayments(paymentsValue) {
+                if (isInt(paymentsValue) === false) {
+                  throw new Error('Payments value has to be an integer');
+                }
+              
+                if (isInRange(paymentsValue, 1, 120) === false) {
+                  throw new Error('Payments Value has to be in 1 - 120 range');
+                }
+              }
+              
+              function validateRate(rateAmount) {
+                if (isInRange(rateAmount, 1, 9) === false) {
+                  throw new Error('Rate % has to be in 1 - 9 range');
+                }
+              }
+              
+              function displayValidationAlert(message) {
+                const alertContainer = document.getElementById('alertContainer');
+                const alertTemplate = document.getElementById('alertTemplate');
+                const templateContent = document.importNode(alertTemplate.content, true);
+                const messageParagraph = templateContent.querySelector('p');
+              
+                alertContainer.innerHTML = '';
+                messageParagraph.innerText = message;
+                alertContainer.appendChild(templateContent);
+              }
+              
+                  </code></pre>
+          </div>
+          <div class="col-lg-4">
+            <h5>handleFormInputChange()</h5>
+            <p>
+              This is a handle event function that is responsible for clearing necessary page elements (e.g. total monthly payment) every time page form input is changed. It will also perform input value validation and show alert if any of the performed validations failed.
+            </p>
+            <h5>isInt()</h5>
+            <p> One of the validation functions- check if passed parameter is a type of Integer.</p>
+            <h5>isInRange()</h5>
+            <p> One of the validation functions- check if passed parameter is in a given value range.</p>
+            <h5>validateLoanAmount()</h5>
+            <p>Function that validates Loan Amount (user input).</p>
+            <h5>validatePayments()</h5>
+            <p>Function that validates Payments (user input).</p>
+            <h5>validateRate()</h5>
+            <p>Function that validates Rate (user input).</p>
+            <h5>displayValidationAlert()</h5>
+            <p>View function that will display alert box with a message when any of the validation checks fail.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- footer section -->
+    <footer class="footer mt-auto py-3 sticky-footer gy-2">
+      <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-lg-3">
+          <div
+            class="
+              col
+              order-last order-lg-first
+              text-light
+              d-flex
+              align-items-center
+            "
+          >
+            <div>
+              <span class="text-muted">&copy;2021</span> Pawel Slugocki |
+              slugocki.pawel@gmail.com
+            </div>
+          </div>
+          <div
+            class="
+              col
+              d-flex
+              align-items-center
+              justify-content-start justify-content-lg-center
+            "
+          >
+            <img src="img/mono-kmousetool.svg" alt="logo" height="40px" />
+          </div>
+          <div
+            class="
+              col
+              d-flex
+              align-items-center
+              justify-content-start justify-content-lg-end
+            "
+          >
+            <div class="row">
+              <div class="col social">
+                <a href="#" target="_blank"
+                  ><i class="fab fa-twitter fa-2x"></i
+                ></a>
+              </div>
+              <div class="col social">
+                <a href="#" target="_blank"
+                  ><i class="fab fa-linkedin fa-2x"></i
+                ></a>
+              </div>
+              <div class="col social">
+                <a href="#" target="_blank"
+                  ><i class="fab fa-youtube fa-2x"></i
+                ></a>
+              </div>
+              <div class="col social">
+                <a href="#" target="_blank"
+                  ><i class="fab fa-github fa-2x"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/prism.js"></script>
+    <script>
+      Prism.plugins.NormalizeWhitespace.setDefaults({
+        "remove-trailing": true,
+        "remove-indent": true,
+        "left-trim": true,
+        "right-trim": true,
+      });
+    </script>
+  </body>
+</html>

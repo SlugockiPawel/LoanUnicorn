@@ -53,6 +53,10 @@ footer .social > a:hover {
   background-color: var(--secondary-color);
 }
 
+.btn-active {
+  background-color: var(--secondary-color);
+}
+
 .sticky-nav {
   position: fixed;
   left: 0;

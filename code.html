@@ -78,24 +78,229 @@
     <!-- main section -->
     <main class="flex-shrink-0">
       <div class="container py-5 px-5 mt-5">
+        <div>
+          <ul class="nav nav-pills mb-2">
+            <li class="nav-item">
+              <a
+                href="./Code.html"
+                class="
+                  btn btn-lg
+                  px-4
+                  me-md-2
+                  btn-active
+                  button-variant
+                  text-light
+                "
+                aria-current="page"
+                >A Loan Unicorn Code</a
+              >
+            </li>
+            <li class="nav-item ms-sm-2">
+              <a
+                href="./codeValidation.html"
+                class="btn btn-lg px-4 me-md-2 border"
+                >Form Validation Code</a
+              >
+            </li>
+          </ul>
+        </div>
         <h2 class="border-1 border-bottom border-dark">
           The Code For A Loan Unicorn
         </h2>
         <div class="row row-cols-1 row-cols-md-2">
           <div class="col-lg-8">
             <pre class="line-numbers"><code class="language-javascript">
-                    //Call HelloWorld
-                    function HelloWorld() {
-                        alert('Hello World');
-                    }
+              // controller function
+              function handleCalculateBtnClick() {
+                const loanAmount = Number(document.getElementById('loanAmountInput').value);
+                const paymentPeriods = Number(document.getElementById('paymentsInput').value);
+                const rate = Number(document.getElementById('rateInput').value);
+              
+                const totalMonthlyPayment = calculateTotalMonthlyPayment(
+                  loanAmount,
+                  rate,
+                  paymentPeriods
+                );
+              
+                const tableRows = populateTableRows(
+                  loanAmount,
+                  paymentPeriods,
+                  totalMonthlyPayment,
+                  rate
+                );
+              
+                const totalInterest = tableRows[tableRows.length - 1].totalInterest;
+              
+                displayAmortizationTable(tableRows);
+                displayTotalElement(loanAmount, 'totalPrincipalContainer');
+                displayTotalElement(totalMonthlyPayment, 'monthlyPaymentContainer');
+                displayTotalElement(totalInterest, 'totalInterestContainer');
+                displayTotalElement(loanAmount + totalInterest, 'totalCostContainer');
+              }
+              
+              // logic functions
+              function calculateTotalMonthlyPayment(loanAmount, rate, paymentPeriods) {
+                const result =
+                  (loanAmount * (rate / 1200)) / (1 - (1 + rate / 1200) ** -paymentPeriods);
+              
+                return result;
+              }
+              
+              function calculateRemainingBalance(
+                previousRemainingBalance,
+                principalPayments
+              ) {
+                return previousRemainingBalance - principalPayments;
+              }
+              
+              function calculateInterestPayment(previousRemainingBalance, rate) {
+                return (previousRemainingBalance * rate) / 1200;
+              }
+              
+              function calculatePrincipalPayment(totalMonthlyPayment, interestPayment) {
+                return totalMonthlyPayment - interestPayment;
+              }
+              
+              function populateTableRows(
+                loanAmount,
+                paymentPeriods,
+                totalMonthlyPayment,
+                rate
+              ) {
+                const tableRows = [];
+              
+                for (let i = 0; i < paymentPeriods; i++) {
+                  const tableRow = calculateTableRow(
+                    i,
+                    tableRows[i - 1],
+                    loanAmount,
+                    rate,
+                    totalMonthlyPayment
+                  );
+              
+                  tableRows.push(tableRow);
+                }
+              
+                return tableRows;
+              }
+              
+              function calculateTableRow(
+                index,
+                previousRow,
+                loanAmount,
+                rate,
+                totalMonthlyPayment
+              ) {
+                // first row previous remaining balance and previous interest values cannot be read from previous row object
+                let previousRemainingBalance = 0;
+                let previousTotalInterest = 0;
+              
+                if (previousRow === undefined) {
+                  previousRemainingBalance = loanAmount;
+                  previousTotalInterest = 0;
+                } else {
+                  previousRemainingBalance = previousRow.remainingBalance;
+                  previousTotalInterest = previousRow.totalInterest;
+                }
+              
+                const tableRow = {
+                  month: index + 1,
+                  payment: Number(totalMonthlyPayment),
+                  interest: 0,
+                  principal: 0,
+                  totalInterest: 0,
+                  remainingBalance: 0,
+                };
+              
+                tableRow.interest = Number(
+                  calculateInterestPayment(previousRemainingBalance, rate)
+                );
+                tableRow.principal = Number(
+                  calculatePrincipalPayment(totalMonthlyPayment, tableRow.interest)
+                );
+                tableRow.totalInterest = Number(previousTotalInterest) + tableRow.interest;
+                tableRow.remainingBalance = Number(
+                  calculateRemainingBalance(previousRemainingBalance, tableRow.principal)
+                );
+              
+                return tableRow;
+              }
+              
+              // view functions
+              function displayAmortizationTable(tableRows) {
+                // get the table body element from the page
+                const tableBody = document.getElementById('results');
+              
+                // clear the table body before populating new data
+                tableBody.innerHTML = '';
+              
+                tableRows.forEach((rowObj) => {
+                  // create <tr> document placeholder for <td> data
+                  const tr = document.createElement('tr');
+              
+                  // populate <td> data (basically single row ) 
+                  const singleTableRow = `
+                      <td>${rowObj.month}</td>
+                      <td>${rowObj.payment.toFixed(2)}</td>
+                      <td>${rowObj.principal.toFixed(2)}</td>
+                      <td>${rowObj.interest.toFixed(2)}</td>
+                      <td>${rowObj.totalInterest.toFixed(2)}</td>
+                      <td>${rowObj.remainingBalance.toFixed(2)}</td>
+                    `;
+              
+                  // complete single <tr> node
+                  tr.innerHTML = singleTableRow;
+              
+                  // append single <tr> to the html table
+                  tableBody.appendChild(tr);
+                });
+              }
+              
+              function displayTotalElement(value, elementId) {
+                const container = document.getElementById(elementId);
+                container.classList.remove('invisible');
+                const currency = value.toLocaleString('en', {style: 'currency',currency: 'USD', minimumFractionDigits: 2})
+              
+                container.innerText = `${currency}`;
+              }
                   </code></pre>
           </div>
           <div class="col-lg-4">
-            <p>The Code is structured in one function.</p>
-            <h5>Hello World</h5>
+            <h5>handleCalculateBtnClick()</h5>
             <p>
-              Hello World is a function that displays am alert with a message of
-              'Hello World'
+              Controller function that performs A Loan Unicorn logic once 'calculate' button is clicked. First, it calculates Total Monthly Payment value. Then it calculates and populate amortiztion table (schedule). Lastly, the amortization schedule along with total Principal, total Interest and total Cost values are displayed to the page.
+            </p>
+            <h5>calculateTotalMonthlyPayment()</h5>
+            <p>
+              Logic function that calculates total monthly payment value.
+            </p>
+            <h5>calculateTableRow()</h5>
+            <p>
+              Logic function that calculate all necessary values for one period of amortization schedule. It returns tableRow object.
+            </p>
+            <h5>populateTableRows()</h5>
+            <p>
+              Logic function that returns an array of tableRow objects for all amortization schedule periods.
+            </p>
+            <h5>calculateRemainingBalance()</h5>
+            <p>
+              Logic function that calculates remaining balance for a given period.
+            </p>
+            <h5>calculateInterestPayment()</h5>
+            <p>
+              Logic function that calculates interest payment value for a given period.
+            </p>
+            <h5>calculatePrincipalPayment()</h5>
+            <p>
+              Logic function that calculates principal payment value for a given period.
+            </p>
+            <h5>displayTotalElement()</h5>
+            <p>
+              View function that displays calculated total element value to the user (e.b. Total Interest or Total Cost values).
+            </p>
+            <h5>displayAmortizationTable()</h5>
+            <p>
+              View function that based on array of tableRow objects, displays amortization schedule table to the user. It iterates through the array and for each tableRow object, it creates table row html fragment and append it to the tableBody html element.
             </p>
           </div>
         </div>
