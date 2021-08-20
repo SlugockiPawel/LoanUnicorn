@@ -235,23 +235,23 @@
                 tableBody.innerHTML = '';
               
                 tableRows.forEach((rowObj) => {
-                  // create <tr> document placeholder for <td> data
+                  // create &lt;tr> document placeholder for &lt;td> data
                   const tr = document.createElement('tr');
               
-                  // populate <td> data (basically single row ) 
+                  // populate &lt;td> data (basically single row ) 
                   const singleTableRow = `
-                      <td>${rowObj.month}</td>
-                      <td>${rowObj.payment.toFixed(2)}</td>
-                      <td>${rowObj.principal.toFixed(2)}</td>
-                      <td>${rowObj.interest.toFixed(2)}</td>
-                      <td>${rowObj.totalInterest.toFixed(2)}</td>
-                      <td>${rowObj.remainingBalance.toFixed(2)}</td>
+                  &lt;td>${rowObj.month}</td>
+                      &lt;td>${rowObj.payment.toFixed(2)}&lt;/td>
+                      &lt;td>${rowObj.principal.toFixed(2)}&lt;/td>
+                      &lt;td>${rowObj.interest.toFixed(2)}&lt;/td>
+                      &lt;td>${rowObj.totalInterest.toFixed(2)}&lt;/td>
+                      &lt;td>${rowObj.remainingBalance.toFixed(2)}&lt;/td>
                     `;
               
-                  // complete single <tr> node
+                  // complete single &lt;tr> node
                   tr.innerHTML = singleTableRow;
               
-                  // append single <tr> to the html table
+                  // append single &lt;tr> to the html table
                   tableBody.appendChild(tr);
                 });
               }
