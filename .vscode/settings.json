@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "MiniSiteTemplate"
+    "liveServer.settings.multiRootWorkspaceName": "MiniSiteTemplate",
+    "liveServer.settings.port": 5501
 }
